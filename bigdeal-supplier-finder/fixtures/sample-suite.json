@@ -1,0 +1,51 @@
+{
+  "fixture_gate_verdict": "PASS",
+  "reports": [
+    {
+      "profile": "search-only",
+      "input": {
+        "product_name": "wireless earbuds",
+        "target_market": "Amazon",
+        "sourcing_type": "private_label",
+        "preferred_regions": ["China", "Vietnam"]
+      },
+      "queries": [
+        "wireless earbuds manufacturer China",
+        "bluetooth earphones OEM Vietnam",
+        "TWS headphones supplier",
+        "wireless earbuds factory",
+        "private label earbuds manufacturer",
+        "bluetooth earbuds wholesale"
+      ],
+      "source_categories_attempted_count": 3,
+      "search_results": [
+        {
+          "query_id": "q1",
+          "title": "Shenzhen Audio Factory wireless earbuds",
+          "snippet": "Supplier in Shenzhen making private label wireless earbuds.",
+          "result_url": "https://example-supplier.test/shenzhen-audio",
+          "source_type": "company_website",
+          "source_name": "Shenzhen Audio Factory",
+          "candidate": {
+            "name": "Shenzhen Audio Factory",
+            "region": "China",
+            "product_match_summary": "Private label wireless earbuds"
+          }
+        },
+        {
+          "query_id": "q2",
+          "title": "Search results page",
+          "snippet": "Query page that must not become evidence.",
+          "result_url": "https://search.example.test/search?q=wireless+earbuds",
+          "source_type": "unknown_public_page"
+        }
+      ]
+    },
+    {
+      "profile": "no-search",
+      "input": {
+        "product_name": "solar garden lights"
+      }
+    }
+  ]
+}

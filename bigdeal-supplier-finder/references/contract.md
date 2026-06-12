@@ -11,7 +11,12 @@ This reference defines the report and acceptance contract used by the skill.
 ## Protocol Requirements
 
 - No login, captcha bypass, cookie/session handling, paid API, database storage, bulk scraping, or external write.
-- Record five stages when running a full discovery workflow: Seed, Source Discovery, Candidate Extraction, Expansion, Curated Report.
+- Record five stages when running a full discovery workflow:
+  - `ROUND_1`: Seed.
+  - `ROUND_2`: Source Discovery.
+  - `ROUND_3`: Candidate Extraction.
+  - `ROUND_4`: Expansion.
+  - `ROUND_5`: Curated Report.
 - Every Supplier Candidate must include at least one evidence link.
 - Evidence grade labels evidence strength only; do not score trustworthiness or recommend purchase.
 

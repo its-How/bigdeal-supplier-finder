@@ -13,6 +13,7 @@ This repository is written for agents and automated consumers. It is not a marke
 - [Release checklist](RELEASE_CHECKLIST.md): verify package inventory and publication boundaries.
 - [Contribute](CONTRIBUTING.md): preserve the evidence-bound report contract.
 - [Security](SECURITY.md): keep credential, browser, provider, and live behavior out of the default package.
+- [Support](SUPPORT.md): understand maintained scope and issue boundaries.
 
 ## Package
 

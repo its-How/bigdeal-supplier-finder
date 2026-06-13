@@ -15,7 +15,7 @@ The package must include:
 - `bigdeal-supplier-finder/tests/`
 - root docs: `README.md`, `INSTALL.md`, `USAGE.md`, `SECURITY.md`,
   `CONTRIBUTING.md`, `CHANGELOG.md`, `OPEN_SOURCE_AUDIT.md`,
-  `RELEASE_CHECKLIST.md`
+  `RELEASE_CHECKLIST.md`, `SUPPORT.md`
 - root license: `LICENSE`
 - `package.json`
 

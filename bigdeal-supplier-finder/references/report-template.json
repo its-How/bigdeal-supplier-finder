@@ -100,7 +100,7 @@
       "source_name": "Canton Fair Directory",
       "source_type": "trade_show_directory",
       "url": "https://cantonfair.test/directory",
-      "applicable_reason": "Trade show exhibitor directory with verified manufacturers",
+      "applicable_reason": "Trade show exhibitor directory with platform-listed manufacturers",
       "evidence_grade": "B",
       "derived_from": "fetched_page",
       "snippet_derived": false,
@@ -215,7 +215,7 @@
       "candidate_id": "src-b2b-00000003",
       "name": "Guangzhou Tech Factory",
       "region": "China",
-      "product_match_summary": "B2B-verified manufacturer of electronic components and finished goods",
+      "product_match_summary": "B2B platform-listed manufacturer of electronic components and finished goods",
       "evidence_grade": "B",
       "evidence_links": [
         {
@@ -229,7 +229,7 @@
             "name": { "source": "page_text", "selector": "h1" },
             "region": { "source": "page_text", "selector": ".location" }
           },
-          "snippet_origin": "B2B platform profile for Guangzhou Tech Factory with verified badges"
+          "snippet_origin": "B2B platform profile for Guangzhou Tech Factory with source-claimed badges"
         }
       ],
       "evidence_source_type": "b2b_platform",
@@ -243,7 +243,7 @@
         "name": { "source": "page_text", "selector": "h1" },
         "region": { "source": "page_text", "selector": ".location" }
       },
-      "snippet_origin": "B2B platform profile for Guangzhou Tech Factory with verified badges"
+      "snippet_origin": "B2B platform profile for Guangzhou Tech Factory with source-claimed badges"
     }
   ],
   "_comment_search_result_signals": "Raw search result signals captured during discovery. Each signal records the query, engine, title, snippet, result URL, and whether the URL is a search page. Search page URLs are marked as query_fuel_only and do not enter source map or candidates.",
@@ -252,7 +252,7 @@
       "query_id": "q1",
       "engine_or_entry": "template",
       "title": "Alibaba Supplier Hub - Wireless Product Manufacturers",
-      "snippet": "B2B platform listing verified manufacturers of wireless products.",
+      "snippet": "B2B platform listing source-claimed manufacturers of wireless products.",
       "result_url": "https://alibaba.test/supplier-hub",
       "rank": 1,
       "retrieved_at": "2026-06-12T00:00:00+00:00",
@@ -329,7 +329,7 @@
       "query_id": "q6",
       "engine_or_entry": "template",
       "title": "Guangzhou Tech Factory B2B Profile",
-      "snippet": "B2B platform profile for Guangzhou Tech Factory with verified badges.",
+      "snippet": "B2B platform profile for Guangzhou Tech Factory with source-claimed badges.",
       "result_url": "https://guangzhou-factory.test/profile",
       "rank": 8,
       "retrieved_at": "2026-06-12T00:00:00+00:00",

@@ -178,8 +178,16 @@ Before any live/provider phase:
 
 ## Live Report Validation
 
-Deterministic validation (`npm test`, `npm run fixture`) proves local contract behavior only. For live reports:
-1. Run the same `npm test` suite to verify structural integrity.
-2. Run `npm run fixture` with the live report to verify it passes fixture gate.
-3. Live reports require a separate live smoke suite (not included in this package) with at least 10 reports before acceptance statistics are meaningful.
-4. Live reports must keep `evidence_scope: "live"` and must not be mixed with deterministic fixtures.
+Deterministic validation (`npm test`, `npm run fixture`) proves local contract
+behavior only. The fixture runner intentionally does not validate live reports:
+it emits `evidence_scope: "deterministic-fixture"` and keeps `live_reports`
+empty.
+
+For live reports:
+
+1. Keep `evidence_scope: "live"` and do not mix live reports with deterministic
+   fixtures.
+2. Use a separate live smoke suite, not included in this package.
+3. Require at least 10 live reports before acceptance statistics are meaningful.
+4. Rerun review for provider, browser, credential, session, and external-write
+   boundaries before any live smoke.

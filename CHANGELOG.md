@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.6
+
+- Uses a clean release line because remote `v0.1.5` tag already existed before
+  this release-boundary hardening pass.
+- Clarifies that the fixture runner does not validate live reports and that a
+  separate live smoke suite is required for live acceptance statistics.
+- Removes `verified` trust-language examples from the report template and
+  replaces them with source-claimed or platform-listed wording.
+- Adds npm publish-time guard (`prepublishOnly`) and a fuller local
+  `release:check` script.
+- Narrows npm keywords so package search metadata matches the skill-file
+  distribution boundary.
+
 ## v0.1.5
 
 - Clarifies stopping conditions in SKILL.md: round budget and hard limit are

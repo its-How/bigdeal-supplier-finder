@@ -1,6 +1,6 @@
 {
   "name": "bigdeal-supplier-finder",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "description": "Agent skill package for evidence-bound supplier discovery reports.",
   "repository": {
@@ -27,28 +27,25 @@
   "scripts": {
     "test": "node --test bigdeal-supplier-finder/tests/*.test.js bigdeal-supplier-finder/tests/*.test.mjs",
     "check": "node --check bigdeal-supplier-finder/scripts/*.js bigdeal-supplier-finder/scripts/src/*.js bigdeal-supplier-finder/tests/*.test.js bigdeal-supplier-finder/tests/*.test.mjs",
-    "fixture": "node bigdeal-supplier-finder/scripts/bsf-fixture.js bigdeal-supplier-finder/fixtures/sample-suite.json"
+    "fixture": "node bigdeal-supplier-finder/scripts/bsf-fixture.js bigdeal-supplier-finder/fixtures/sample-suite.json",
+    "release:check": "npm test && npm run check && npm run fixture && npm pack --dry-run",
+    "prepublishOnly": "npm test && npm run check && npm run fixture"
   },
   "engines": {
     "node": ">=20"
   },
   "keywords": [
-    "supplier-discovery",
-    "sourcing-automation",
-    "vendor-discovery",
-    "b2b-platform-search",
-    "trade-show-directory",
+    "agent-skill",
+    "supplier-report-contract",
+    "evidence-bound-report",
+    "supplier-discovery-report",
+    "b2b-source-map",
     "raw-signal-discovery",
     "curated-signal-extraction",
     "query-expansion",
-    "multi-source-search",
     "structured-sourcing-report",
-    "evidence-based-curation",
-    "source-map-generation",
-    "ai-powered-sourcing",
-    "llm-sourcing-assistant",
-    "global-buyer-tool",
-    "cross-border-sourcing"
+    "deterministic-fixtures",
+    "skill-validation"
   ],
   "license": "MIT"
 }

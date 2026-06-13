@@ -3,6 +3,25 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Agent skill package for evidence-bound supplier discovery reports.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/its-How/bigdeal-supplier-finder.git"
+  },
+  "homepage": "https://github.com/its-How/bigdeal-supplier-finder#readme",
+  "bugs": {
+    "url": "https://github.com/its-How/bigdeal-supplier-finder/issues"
+  },
+  "files": [
+    "bigdeal-supplier-finder/",
+    "README.md",
+    "INSTALL.md",
+    "USAGE.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "OPEN_SOURCE_AUDIT.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "node --test bigdeal-supplier-finder/tests/*.test.js bigdeal-supplier-finder/tests/*.test.mjs",
     "check": "node --check bigdeal-supplier-finder/scripts/*.js bigdeal-supplier-finder/scripts/src/*.js bigdeal-supplier-finder/tests/*.test.js bigdeal-supplier-finder/tests/*.test.mjs",

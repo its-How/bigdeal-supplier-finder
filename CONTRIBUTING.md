@@ -10,6 +10,9 @@ npm run check
 npm run fixture
 ```
 
+For install and usage expectations, keep [INSTALL.md](INSTALL.md) and
+[USAGE.md](USAGE.md) consistent with the skill boundary.
+
 Do not add:
 
 - credential handling;

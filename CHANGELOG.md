@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.1.5
+
+- Adds stopping conditions to SKILL.md: round budget, diminishing returns,
+  coverage saturation, hard limit.
+- Clarifies Source Map vs Supplier Candidate boundary with concrete definitions
+  and dedup rules in both SKILL.md and contract.md.
+- Adds report template (`references/report-template.json`) with validation test
+  covering all 11 required report sections.
+- Specifies evidence link criteria precisely: valid URL, not search page, not
+  paywall/login/captcha, points to claimed supplier info.
+- Adds fetch failure handling guidance: record attempt, add gap, no candidate
+  from failed fetch, hard limit handling.
+- Adds collapsible container product coverage verification guidance.
+- Reconciles ROUND_1–5 stages from contract.md into SKILL.md workflow
+  (Pre-Flight → ROUND_1: Seed → ROUND_2: Source Discovery → ROUND_3: Candidate
+  Extraction → ROUND_4: Expansion → ROUND_5: Curated Report).
+- Clarifies live report validation: deterministic proves contract only; live
+  needs separate suite with 10+ reports.
+- Makes search tool capability assumptions explicit (web search + web fetch;
+  no paid APIs, auth, CAPTCHA, JS rendering, or DB storage).
+- Adds fetch-timeout fixture to deterministic edge cases.
+
 ## v0.1.4
 
 - Bumps package metadata to `0.1.4` for npm publication after login.

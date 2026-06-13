@@ -1,6 +1,6 @@
 {
   "name": "bigdeal-supplier-finder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "description": "Agent skill package for evidence-bound supplier discovery reports.",
   "repository": {

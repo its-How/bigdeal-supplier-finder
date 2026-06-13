@@ -16,10 +16,26 @@ This repository is written for agents and automated consumers. It is not a marke
 | Path | Purpose |
 |---|---|
 | `bigdeal-supplier-finder/SKILL.md` | Agent-readable workflow contract |
+| `bigdeal-supplier-finder/agents/openai.yaml` | Advisory metadata only; not marketplace or runtime acceptance evidence |
 | `bigdeal-supplier-finder/references/contract.md` | Report schema, evidence rules, and acceptance boundaries |
 | `bigdeal-supplier-finder/scripts/` | Deterministic fixture runner and contract code |
 | `bigdeal-supplier-finder/fixtures/` | Sample deterministic inputs and edge cases |
 | `bigdeal-supplier-finder/tests/` | Local regression tests |
+
+The npm package shape currently has no `bin`, `main`, or `exports` entry. If it
+is ever published, it distributes the skill directory and validation files only;
+it does not provide a command-line tool or JavaScript import API. npm publish has
+not occurred and requires separate exact approval.
+
+## Supported Local Channels
+
+- Generic `SKILL.md` directory: copy `bigdeal-supplier-finder/` into a runtime
+  that can load skill directories.
+- Codex-style local copy: copy `bigdeal-supplier-finder/` into
+  `${CODEX_HOME:-$HOME/.codex}/skills/`.
+- `agents/openai.yaml`: advisory metadata bundled with the skill directory only.
+  It does not prove OpenAI marketplace acceptance, Codex runtime acceptance, or
+  any named registry listing.
 
 ## What It Does
 
@@ -49,5 +65,9 @@ The fixture command must stay deterministic and must not claim live readiness.
 ## Publication Boundary
 
 The current package is a locally validated open-source skill package when validation and review pass. Any GitHub push, registry publish, package release, or external write requires a separate explicit approval.
+
+Local validation does not prove live supplier quality, provider readiness,
+browser/session readiness, credential safety, registry acceptance, marketplace
+acceptance, or production readiness.
 
 License: MIT.

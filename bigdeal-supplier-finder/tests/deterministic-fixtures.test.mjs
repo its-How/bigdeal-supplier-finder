@@ -17,7 +17,8 @@ const requiredFixtureIds = [
   "search-only-candidates-c-grade",
   "no-search-fail-fast-empty",
   "ac-classifier-catch-all-fail",
-  "hard-limit-skipped-stage-records"
+  "hard-limit-skipped-stage-records",
+  "fetch-timeout-gap"
 ];
 
 function fixture(id) {
@@ -159,4 +160,14 @@ test("hard-limit stage records mark skipped external work after the limit", () =
   assert.ok(round5, "ROUND_5 must still be recorded after a hard limit");
   assert.equal(round5.status, "completed");
   assert.equal(round5.external_action, "none");
+});
+
+test("fetch timeout produces gap but no candidate", () => {
+  const { report } = fixture("fetch-timeout-gap");
+
+  assert.equal(report.source_map.length, 0);
+  assert.equal(report.supplier_candidates.length, 0);
+
+  const gap = report.gaps.find((g) => g.reason === "fetch_timeout");
+  assert.ok(gap, "gap with fetch_timeout reason must exist");
 });

@@ -498,6 +498,79 @@
           "evidence_bound_low": false
         }
       }
+    },
+    {
+      "id": "fetch-timeout-gap",
+      "description": "Fetch timeout produces a gap but no candidate.",
+      "report": {
+        "metadata": {
+          "fixture_id": "fetch-timeout-gap",
+          "runtime_profile": "search+fetch",
+          "stop_reason": "completed_with_gaps",
+          "protocol_compliance_verdict": "PASS",
+          "acceptance_verdict": "FAIL"
+        },
+        "queries_tried": [
+          {
+            "query_id": "q1",
+            "entry": "fixture",
+            "query_text": "silicone kitchenware OEM China",
+            "result_count": 1,
+            "fetch_count": 1
+          }
+        ],
+        "search_result_signals": [
+          {
+            "query_id": "q1",
+            "engine_or_entry": "fixture",
+            "title": "Silicone Factory",
+            "snippet": "A silicone kitchenware manufacturer.",
+            "result_url": "https://silicone-factory.test/company",
+            "rank": 1,
+            "retrieved_at": "2026-06-13T00:00:00+00:00",
+            "is_search_page_url": false,
+            "admissibility": "candidate_input"
+          }
+        ],
+        "source_attempts": [
+          {
+            "attempt_id": "a1",
+            "url_or_source": "https://silicone-factory.test/company",
+            "source_type": "company_website",
+            "attempt_type": "fetch",
+            "status": "failed",
+            "reason": "fetch_timeout",
+            "query_id": "q1",
+            "retrieved_at": "2026-06-13T00:00:00+00:00"
+          }
+        ],
+        "source_map": [],
+        "supplier_candidates": [],
+        "query_suggestions": [],
+        "gaps": [
+          {
+            "gap_id": "g1",
+            "reason": "fetch_timeout"
+          }
+        ],
+        "stage_records": [
+          {"stage": "ROUND_1", "status": "completed", "external_action": "search"},
+          {"stage": "ROUND_2", "status": "completed", "external_action": "fetch"},
+          {"stage": "ROUND_3", "status": "completed", "external_action": "none"},
+          {"stage": "ROUND_4", "status": "completed", "external_action": "none"},
+          {"stage": "ROUND_5", "status": "completed", "external_action": "none"}
+        ],
+        "metrics": {
+          "url_backed_source_map_count": 0,
+          "supplier_candidate_count": 0,
+          "actionable_lead_count": 0,
+          "missing_evidence_link_count": 0,
+          "boundary_violation_count": 0,
+          "source_category_count": 1,
+          "rb005_pass": false,
+          "evidence_bound_low": false
+        }
+      }
     }
   ]
 }

@@ -3,6 +3,9 @@
   "reports": [
     {
       "profile": "search-only",
+      "execution_metadata": {
+        "stop_reason": "completed_with_gaps"
+      },
       "input": {
         "product_name": "wireless earbuds",
         "target_market": "Amazon",

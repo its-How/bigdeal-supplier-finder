@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.1.3
+
+- Adds GitHub Actions CI for deterministic tests, syntax checks, fixture
+  execution, and package dry-run.
+- Adds GitHub issue templates for deterministic bugs and source-contract
+  changes, with boundary checks against credentials, browser/session material,
+  live supplier verification, paid provider access, and external writes.
+- Adds README CI badge backed by the new workflow.
+- Adds `RELEASE_CHECKLIST.md` and includes it in the package file list.
+- Adds `SUPPORT.md` with maintained scope, version policy, issue policy, and
+  explicit gates for npm publish, marketplace/registry submission, live search,
+  provider/browser behavior, account integration, and procurement
+  recommendation features.
+- Bumps local package metadata to `0.1.3`. No npm publish has occurred.
+
 ## v0.1.2
 
 - Local hardening version after the GitHub `v0.1.1` release already existed.

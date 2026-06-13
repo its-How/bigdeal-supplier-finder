@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.1.4
+
+- Bumps package metadata to `0.1.4` for npm publication after login.
+- Rewords npm publication boundaries so package contents do not claim
+  unpublished status after registry publication. npm registry state must be
+  proven by a registry receipt.
+- Keeps the package as skill-file distribution plus local validation assets:
+  no CLI, no JavaScript import API, no marketplace acceptance claim, no
+  provider/browser/credential/live behavior, and no production readiness claim.
+
 ## v0.1.3
 
 - Adds GitHub Actions CI for deterministic tests, syntax checks, fixture

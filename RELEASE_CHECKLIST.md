@@ -40,7 +40,7 @@ npm pack --dry-run --cache /private/tmp/asf-bsf-npm-cache-20260613
   does not prove registry acceptance.
 - No npm publish, package name claiming, account check, 2FA flow, registry
   submission, marketplace submission, provider/browser/session action,
-  credential handling, live search, deploy, or external write is included in
+  credential handling, live search, deploy, or external write is proven by
   local validation.
 - Deterministic fixtures prove local contract behavior only, not live supplier
   discovery quality, provider readiness, browser/session readiness, credential

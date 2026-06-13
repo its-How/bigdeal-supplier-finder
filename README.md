@@ -26,10 +26,10 @@ This repository is written for agents and automated consumers. It is not a marke
 | `bigdeal-supplier-finder/fixtures/` | Sample deterministic inputs and edge cases |
 | `bigdeal-supplier-finder/tests/` | Local regression tests |
 
-The npm package shape currently has no `bin`, `main`, or `exports` entry. If it
-is ever published, it distributes the skill directory and validation files only;
-it does not provide a command-line tool or JavaScript import API. npm publish has
-not occurred and requires separate exact approval.
+The npm package shape currently has no `bin`, `main`, or `exports` entry. If a
+version is published to npm, it distributes the skill directory and validation
+files only; it does not provide a command-line tool or JavaScript import API.
+Treat npm registry state as proven only by an npm registry receipt.
 
 ## Supported Local Channels
 

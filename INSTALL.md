@@ -9,10 +9,11 @@ The core skill directory is:
 bigdeal-supplier-finder/
 ```
 
-The npm package is not published by this repository's local validation. Current
-package metadata has no `bin`, `main`, or `exports` entry, so the npm shape is
-for distributing skill files and local validation assets only. It is not a CLI
-and not a JavaScript import API.
+The npm package is not published by this repository's local validation. Package
+metadata has no `bin`, `main`, or `exports` entry, so the npm shape is for
+distributing skill files and local validation assets only. It is not a CLI and
+not a JavaScript import API. Treat npm registry state as proven only by an npm
+registry receipt.
 
 ## From GitHub
 
@@ -69,10 +70,10 @@ npm pack --dry-run
 publish the package and does not prove registry acceptance.
 
 `npm publish`, package name claiming, account checks, registry submission, and
-release mutation require separate exact approval. No npm publish has occurred.
+release mutation require separate exact approval and an npm registry receipt.
 
 ## Not Included
 
-This package does not include npm publication, a marketplace listing, live
-supplier discovery, paid API integration, credential handling, browser/session
-automation, or production readiness.
+This package does not include a marketplace listing, live supplier discovery,
+paid API integration, credential handling, browser/session automation, or
+production readiness.

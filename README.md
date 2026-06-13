@@ -1,5 +1,7 @@
 # BigDeal Supplier Finder
 
+[![CI](https://github.com/its-How/bigdeal-supplier-finder/actions/workflows/ci.yml/badge.svg)](https://github.com/its-How/bigdeal-supplier-finder/actions/workflows/ci.yml)
+
 Runtime-agnostic agent skill for evidence-bound supplier discovery reports.
 
 This repository is written for agents and automated consumers. It is not a marketing site, crawler, supplier database, or procurement recommendation service.
@@ -8,6 +10,7 @@ This repository is written for agents and automated consumers. It is not a marke
 
 - [Install](INSTALL.md): copy the `bigdeal-supplier-finder/` skill directory or use the local npm package shape.
 - [Use](USAGE.md): run the deterministic fixture and prompt an agent without live/provider actions.
+- [Release checklist](RELEASE_CHECKLIST.md): verify package inventory and publication boundaries.
 - [Contribute](CONTRIBUTING.md): preserve the evidence-bound report contract.
 - [Security](SECURITY.md): keep credential, browser, provider, and live behavior out of the default package.
 

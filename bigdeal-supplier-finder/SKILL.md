@@ -15,7 +15,7 @@ Do:
 
 - generate diverse search/query plans across B2B platforms, trade shows, associations, government or industry directories, company websites, supplier directories, and public media/community sources;
 - record `SearchResultSignal`, `SourceAttempt`, `SourceMapEntry`, `SupplierCandidate`, `QuerySuggestion`, and `Gap` separately;
-- include at least one evidence link for every Supplier Candidate;
+- Every Supplier Candidate must include at least one evidence link that: (a) is a valid HTTP/HTTPS URL, (b) is not a search engine results page or site-search page, (c) is not a known paywall/login-wall/captcha page, (d) points to a page that contains the supplier information claimed in the candidate fields. Evidence links that fail these criteria must be removed; if no valid evidence link remains, the candidate must not enter Supplier Candidates.
 - grade evidence strength only as A/B/C/D;
 - mark low-evidence and missing-evidence cases instead of hiding them;
 - run the deterministic validator scripts when editing report contracts or examples.
@@ -41,20 +41,63 @@ Ask for or infer:
 
 If live or credentialed actions are not explicitly authorized, operate in planning or deterministic fixture mode only.
 
+## Runtime Capability Assumptions
+
+This skill assumes the agent runtime has access to:
+1. **Web search** — returning result titles, snippets, and target URLs.
+2. **Web fetch** — retrieving page content from public HTTP/HTTPS URLs.
+
+If search is unavailable, operate in `no-search` mode (fail-fast with metadata only).
+If fetch is unavailable, operate in `search-only` mode (C-grade candidates only).
+
+This skill does NOT assume: paid API access, authenticated sessions, CAPTCHA solving, JavaScript rendering, or database storage.
+
 ## Workflow
 
-1. Classify runtime capability:
-   - `search+fetch`: public search and public page fetch are available.
-   - `search-only`: search results/snippets are available but target pages are not fetched.
-   - `no-search`: no external search is available; return fail-fast metadata and query suggestions only.
-2. Build at least six deduplicated query combinations when search is available.
-3. Try at least three source categories when search is available.
-4. Treat search result pages and query-only snippets as query fuel only.
-5. Build Source Map entries only from URL-backed target pages or admissible target URLs.
-6. Build Supplier Candidates only when minimum fields and at least one evidence link exist.
-7. Deduplicate actionable leads by canonical URL plus normalized supplier/source name.
-8. Produce the final report sections listed in `references/contract.md`.
-9. Run deterministic validation when creating or modifying examples.
+### Pre-Flight
+1. Classify runtime capability: `search+fetch`, `search-only`, or `no-search`.
+2. If `no-search`, return fail-fast metadata and empty arrays immediately.
+
+### ROUND_1: Seed
+3. Build at least 6 deduplicated query combinations across target regions, product terms, and sourcing intents.
+4. Execute initial search across at least 3 source categories.
+
+### ROUND_2: Source Discovery
+5. From ROUND_1 results, identify source surfaces (B2B platforms, directories, trade show lists, association pages).
+6. Build Source Map entries from URL-backed target pages that aggregate multiple suppliers.
+
+A Source Map entry is a **discovery surface** — a URL-backed page that lists, indexes, or aggregates multiple potential suppliers (e.g., a B2B platform category page, a trade show exhibitor list, a government supplier directory). It is NOT a specific supplier. If the page describes a single supplier with contact/location/product details, it is a Supplier Candidate, not a Source Map entry.
+
+7. Record all search result signals as query fuel; do not treat them as evidence.
+
+### ROUND_3: Candidate Extraction
+8. From Source Map entries and admissible search result target URLs, extract Supplier Candidates.
+
+A Supplier Candidate is a **specific supplier entity** with name, region, and product match. It must come from a Source Map entry or directly from a search result target URL. If the same URL serves as both a discovery surface AND describes a specific supplier, classify it as a Supplier Candidate and do NOT duplicate it in Source Map.
+
+9. Each candidate must have: name, region, product_match_summary, at least one evidence link, evidence grade, and provenance fields.
+10. D-grade signals must not enter Supplier Candidates.
+
+### ROUND_4: Expansion
+11. From gaps and query suggestions, generate expansion queries targeting uncovered regions, source categories, or product terms.
+12. Run one base expansion pass unless the profile is `no-search` or a hard limit has already stopped external actions. If Supplier Candidates are fewer than 8 or source categories are fewer than 3, run at most one targeted expansion or record why it is not possible.
+13. Deduplicate actionable leads by canonical URL + normalized name.
+14. If hard limit hit, stop new external search/fetch actions, continue to ROUND_5 with existing evidence, and record skipped external actions without fabricating results.
+
+### ROUND_5: Curated Report
+15. Assemble all report sections per `references/contract.md`.
+16. Run deterministic validation (`npm test`, `npm run fixture`).
+17. Record acceptance summary with fixture gate verdict.
+
+## Stopping Conditions
+
+Stop new external search/fetch actions only under these conditions:
+
+1. **Round budget exhausted**: All 5 rounds (ROUND_1 through ROUND_5) completed.
+2. **Sufficient results after base expansion**: at least 8 Supplier Candidates and at least 3 source categories; this may skip only an additional targeted expansion.
+3. **Hard limit hit**: runtime enforces a hard limit such as rate limit, token budget, fetch cap, query cap, or time cap.
+
+Do not skip ROUND_1 through ROUND_3 because of diminishing returns or coverage saturation. When a hard limit fires before all rounds complete, record the stop reason in `execution_metadata.stop_reason`, stop new external actions, continue to ROUND_5 with existing evidence, and mark only blocked external actions as skipped in `stage_records`.
 
 ## Evidence Rules
 
@@ -64,6 +107,22 @@ If live or credentialed actions are not explicitly authorized, operate in planni
 - D: AI summary, no public evidence URL, search page URL, query-only signal, or missing minimum fields. D-grade signals must not enter Supplier Candidates.
 
 Search-only candidates may enter as C-grade only when they are snippet-derived, not fetched, use a non-search-page target URL, and include explicit provenance.
+
+## Fetch Failure Handling
+
+When a fetch attempt fails (status: failed, restricted, missing_fields, rejected):
+1. Record the attempt in `source_attempts` with the failure reason.
+2. Add a `gap` entry referencing the `source_attempt_id` and describing what was missing.
+3. Do NOT create a SourceMapEntry or SupplierCandidate from the failed fetch.
+4. If the failure is due to a hard limit (rate limit, fetch cap), mark remaining rounds as skipped.
+
+## Product Coverage Verification
+
+When a fetched page uses collapsible/expandable sections (accordions, "Show more", tabs), the visible content may not represent the full page. For each Supplier Candidate:
+
+1. Note in `field_origin` whether critical fields (name, region, product_match_summary) came from visible or potentially-hidden content.
+2. If product listings or supplier details appear to be truncated by UI containers, add a `gap` entry: `{ reason: "collapsible_container_coverage_gap", detail: "..." }`.
+3. Downgrade evidence grade to C if critical fields rely on content that may be hidden behind expandable UI.
 
 ## Report Contract
 
@@ -81,6 +140,7 @@ Every report must include:
 - Queries Tried
 - Query Suggestions
 - Gaps
+- Next Steps
 - Risk Notice
 
 ## Deterministic Scripts
@@ -115,3 +175,11 @@ Before any live/provider phase:
 - keep live reports separate from fixture reports;
 - require 10 live reports for live acceptance statistics;
 - rerun review for browser/provider/credential/live boundaries.
+
+## Live Report Validation
+
+Deterministic validation (`npm test`, `npm run fixture`) proves local contract behavior only. For live reports:
+1. Run the same `npm test` suite to verify structural integrity.
+2. Run `npm run fixture` with the live report to verify it passes fixture gate.
+3. Live reports require a separate live smoke suite (not included in this package) with at least 10 reports before acceptance statistics are meaningful.
+4. Live reports must keep `evidence_scope: "live"` and must not be mixed with deterministic fixtures.

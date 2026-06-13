@@ -5,6 +5,7 @@ import { mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
+import { readFile } from 'node:fs/promises';
 import { classifyAcceptance, classifyLiveReport, computeReportMetrics, createNoSearchReport, LiveEligibility, ProtocolVerdict, Verdict } from '../scripts/src/classifier.js';
 import { runFixture } from '../scripts/src/orchestrator.js';
 import { isSearchPageUrl } from '../scripts/src/url.js';
@@ -234,6 +235,31 @@ test('fixture CLI never promotes fixture suites to live evidence', async () => {
   assert.equal(output.deterministic_reports.length, 1);
   assert.ok(output.cannot_prove.includes('live_smoke_readiness'));
   assert.equal(output.acceptance.acceptance_verdict, Verdict.FAIL);
+});
+
+test('report template passes all validators', async () => {
+  const templatePath = new URL('../references/report-template.json', import.meta.url).pathname;
+  const raw = await readFile(templatePath, 'utf-8');
+  const template = JSON.parse(raw);
+  const metrics = computeReportMetrics(template);
+
+  assert.equal(metrics.missing_evidence_link_count, 0);
+  assert.equal(metrics.boundary_violation_count, 0);
+  assert.ok(metrics.actionable_lead_count >= 8);
+});
+
+test('fetch timeout produces gap but no candidate', () => {
+  const report = runFixture({
+    profile: 'search+fetch',
+    queries: sixQueries(),
+    source_categories_attempted_count: 3,
+    search_results: [supplierResult(1)],
+    fetches: [{ url: 'https://supplier1.test/company', status: 'failed', reason: 'fetch_timeout', query_id: 'q1' }]
+  });
+
+  assert.equal(report.source_map.length, 0);
+  assert.equal(report.supplier_candidates.length, 0);
+  assert.equal(report.gaps.some((gap) => gap.reason === 'fetch_timeout'), true);
 });
 
 test('same target URL in Source Map and Supplier Candidate counts as one actionable lead', () => {

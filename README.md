@@ -8,7 +8,7 @@ This repository is written for agents and automated consumers. It is not a marke
 
 ## Start Here
 
-- [Install](INSTALL.md): copy the `bigdeal-supplier-finder/` skill directory or use the local npm package shape.
+- [Install](INSTALL.md): copy the `bigdeal-supplier-finder/` skill directory or use the npm file-distribution package shape.
 - [Use](USAGE.md): run the deterministic fixture and prompt an agent without live/provider actions.
 - [Release checklist](RELEASE_CHECKLIST.md): verify package inventory and publication boundaries.
 - [Contribute](CONTRIBUTING.md): preserve the evidence-bound report contract.
@@ -68,7 +68,7 @@ The fixture command must stay deterministic and must not claim live readiness.
 
 ## Publication Boundary
 
-The current package is a locally validated open-source skill package when validation and review pass. Any GitHub push, registry publish, package release, or external write requires a separate explicit approval.
+The current package can be treated as a locally validated package candidate when validation and review pass. Any GitHub push, registry publish, package release, or external write requires a separate explicit approval and a receipt.
 
 Local validation does not prove live supplier quality, provider readiness,
 browser/session readiness, credential safety, registry acceptance, marketplace

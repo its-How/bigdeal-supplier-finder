@@ -129,19 +129,7 @@
             "retrieved_at": "2026-06-13T01:00:00+08:00"
           }
         ],
-        "source_map": [
-          {
-            "source_name": "Supplier Example",
-            "source_type": "company_website",
-            "url": "https://supplier.example/stainless-bottle",
-            "applicable_reason": "Public product page mentions stainless steel bottles.",
-            "evidence_grade": "B",
-            "derived_from": "fetched_page",
-            "snippet_derived": false,
-            "source_attempt_ids": ["a1"],
-            "retrieved_at": "2026-06-13T01:00:00+08:00"
-          }
-        ],
+        "source_map": [],
         "supplier_candidates": [
           {
             "candidate_id": "src-web-00000001",
@@ -180,12 +168,12 @@
           {"stage": "ROUND_5", "status": "completed", "external_action": "none"}
         ],
         "metrics": {
-          "url_backed_source_map_count": 1,
-          "supplier_candidate_count": 1,
-          "actionable_lead_count": 1,
+          "url_backed_source_map_count": 0,
+          "supplier_candidate_count": 0,
+          "actionable_lead_count": 0,
           "missing_evidence_link_count": 1,
           "boundary_violation_count": 1,
-          "source_category_count": 1,
+          "source_category_count": 0,
           "rb005_pass": false,
           "evidence_bound_low": false
         }
@@ -257,30 +245,7 @@
             "retrieved_at": "2026-06-13T01:00:00+08:00"
           }
         ],
-        "source_map": [
-          {
-            "source_name": "Directory Example",
-            "source_type": "supplier_directory",
-            "url": "https://directory.example/suppliers/taiwan-yoga-mat-factory",
-            "applicable_reason": "Search target URL points to a supplier directory entry.",
-            "evidence_grade": "C",
-            "derived_from": "search_result",
-            "snippet_derived": true,
-            "source_attempt_ids": ["a1"],
-            "retrieved_at": "2026-06-13T01:00:00+08:00"
-          },
-          {
-            "source_name": "Directory Example",
-            "source_type": "supplier_directory",
-            "url": "https://directory.example/suppliers/formosa-foam-products",
-            "applicable_reason": "Search target URL points to a supplier directory entry.",
-            "evidence_grade": "C",
-            "derived_from": "search_result",
-            "snippet_derived": true,
-            "source_attempt_ids": ["a2"],
-            "retrieved_at": "2026-06-13T01:00:00+08:00"
-          }
-        ],
+        "source_map": [],
         "supplier_candidates": [
           {
             "candidate_id": "src-dir-00000002",
@@ -368,7 +333,7 @@
           {"stage": "ROUND_5", "status": "completed", "external_action": "none"}
         ],
         "metrics": {
-          "url_backed_source_map_count": 2,
+          "url_backed_source_map_count": 0,
           "supplier_candidate_count": 2,
           "actionable_lead_count": 2,
           "missing_evidence_link_count": 0,
@@ -493,7 +458,7 @@
           "actionable_lead_count": 0,
           "missing_evidence_link_count": 0,
           "boundary_violation_count": 0,
-          "source_category_count": 1,
+          "source_category_count": 0,
           "rb005_pass": false,
           "evidence_bound_low": false
         }
@@ -566,7 +531,7 @@
           "actionable_lead_count": 0,
           "missing_evidence_link_count": 0,
           "boundary_violation_count": 0,
-          "source_category_count": 1,
+          "source_category_count": 0,
           "rb005_pass": false,
           "evidence_bound_low": false
         }

@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
-import { classifyAcceptance } from "../scripts/src/classifier.js";
+import { classifyAcceptance, computeReportMetrics } from "../scripts/src/classifier.js";
 import { isSearchPageUrl } from "../scripts/src/schema.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,6 +35,26 @@ test("fixture pack contains every required deterministic edge case", () => {
   assert.equal(fixtureDoc.schema, "bsf-deterministic-fixtures-v0.1");
   for (const id of requiredFixtureIds) {
     assert.ok(fixtures.has(id), `fixture missing required case: ${id}`);
+  }
+});
+
+test("fixture reported metrics match classifier-derived metrics", () => {
+  const metricKeys = [
+    "url_backed_source_map_count",
+    "supplier_candidate_count",
+    "actionable_lead_count",
+    "missing_evidence_link_count",
+    "boundary_violation_count",
+    "source_category_count",
+    "evidence_bound_low"
+  ];
+
+  for (const { id, report } of fixtureDoc.fixtures) {
+    if (!report?.metrics) continue;
+    const computed = computeReportMetrics(report);
+    for (const key of metricKeys) {
+      assert.equal(report.metrics[key], computed[key], `${id} ${key}`);
+    }
   }
 });
 

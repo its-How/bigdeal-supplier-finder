@@ -84,7 +84,7 @@ export function runFixture(fixture) {
       continue;
     }
 
-    if (result.source_map !== false) {
+    if (result.source_map !== false && !result.candidate) {
       const entry = {
         source_name: result.source_name ?? domainName(signal.result_url),
         source_type: result.source_type ?? 'unknown_public_page',

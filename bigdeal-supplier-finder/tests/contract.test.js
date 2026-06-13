@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { mkdtemp, writeFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
@@ -59,6 +60,7 @@ test('search-only candidates are C-grade snippet-derived and not fetched', () =>
   assert.equal(report.supplier_candidates[0].evidence_grade, 'C');
   assert.equal(report.supplier_candidates[0].snippet_derived, true);
   assert.equal(report.supplier_candidates[0].not_fetched, true);
+  assert.equal(report.source_map.length, 0);
   assert.equal(report.execution_limit_audit.fetch_attempts_count, 0);
   assert.equal(report.acceptance_summary.report_scope, 'deterministic-fixture-report');
   assert.equal(report.acceptance_summary.acceptance_verdict, Verdict.FAIL);
@@ -248,6 +250,58 @@ test('report template passes all validators', async () => {
   assert.ok(metrics.actionable_lead_count >= 8);
 });
 
+test('package inventory stays file-distribution only', async () => {
+  const repoRoot = new URL('../../', import.meta.url);
+  const packagePath = new URL('package.json', repoRoot);
+  const packageJson = JSON.parse(await readFile(packagePath, 'utf-8'));
+
+  assert.equal('bin' in packageJson, false);
+  assert.equal('main' in packageJson, false);
+  assert.equal('exports' in packageJson, false);
+
+  const requiredFileEntries = [
+    'bigdeal-supplier-finder/',
+    'README.md',
+    'INSTALL.md',
+    'USAGE.md',
+    'CONTRIBUTING.md',
+    'SECURITY.md',
+    'CHANGELOG.md',
+    'OPEN_SOURCE_AUDIT.md',
+    'RELEASE_CHECKLIST.md',
+    'SUPPORT.md',
+    'LICENSE'
+  ];
+
+  for (const requiredEntry of requiredFileEntries) {
+    assert.ok(packageJson.files.includes(requiredEntry), `package.json files includes ${requiredEntry}`);
+  }
+
+  const requiredPaths = [
+    'bigdeal-supplier-finder/SKILL.md',
+    'bigdeal-supplier-finder/agents/openai.yaml',
+    'bigdeal-supplier-finder/references/contract.md',
+    'bigdeal-supplier-finder/scripts/bsf-fixture.js',
+    'bigdeal-supplier-finder/fixtures/sample-suite.json',
+    'bigdeal-supplier-finder/tests/contract.test.js',
+    'README.md',
+    'INSTALL.md',
+    'USAGE.md',
+    'CONTRIBUTING.md',
+    'SECURITY.md',
+    'SUPPORT.md',
+    'CHANGELOG.md',
+    'OPEN_SOURCE_AUDIT.md',
+    'RELEASE_CHECKLIST.md',
+    'LICENSE',
+    'package.json'
+  ];
+
+  for (const requiredPath of requiredPaths) {
+    assert.equal(existsSync(new URL(requiredPath, repoRoot)), true, `${requiredPath} exists`);
+  }
+});
+
 test('fetch timeout produces gap but no candidate', () => {
   const report = runFixture({
     profile: 'search+fetch',
@@ -262,7 +316,7 @@ test('fetch timeout produces gap but no candidate', () => {
   assert.equal(report.gaps.some((gap) => gap.reason === 'fetch_timeout'), true);
 });
 
-test('same target URL in Source Map and Supplier Candidate counts as one actionable lead', () => {
+test('defensive legacy overlap between Source Map and Supplier Candidate counts as one actionable lead', () => {
   const report = reportWithCandidates({ candidateCount: 1, sourceMapCount: 1 });
   report.source_map[0].url = 'https://same-target.test/company';
   report.source_map[0].source_name = 'Same Target Co';

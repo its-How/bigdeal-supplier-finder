@@ -1,7 +1,7 @@
 # Install
 
-`bigdeal-supplier-finder` is distributed as a portable skill directory plus a
-local npm package shape for deterministic validation.
+`bigdeal-supplier-finder` is distributed as a portable skill directory plus an
+npm file-distribution package shape for deterministic validation.
 
 The core skill directory is:
 

@@ -2,8 +2,9 @@
 
 ## v0.1.5
 
-- Adds stopping conditions to SKILL.md: round budget, diminishing returns,
-  coverage saturation, hard limit.
+- Clarifies stopping conditions in SKILL.md: round budget and hard limit are
+  hard stops, while diminishing returns and coverage saturation cannot skip
+  required ROUND_1-3 discovery.
 - Clarifies Source Map vs Supplier Candidate boundary with concrete definitions
   and dedup rules in both SKILL.md and contract.md.
 - Adds report template (`references/report-template.json`) with validation test
@@ -21,6 +22,8 @@
 - Makes search tool capability assumptions explicit (web search + web fetch;
   no paid APIs, auth, CAPTCHA, JS rendering, or DB storage).
 - Adds fetch-timeout fixture to deterministic edge cases.
+- Adds deterministic package inventory guard to block missing skill files or
+  accidental `bin`/`main`/`exports` package surface.
 
 ## v0.1.4
 

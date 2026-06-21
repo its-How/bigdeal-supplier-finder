@@ -255,7 +255,7 @@ Every report must include:
 
 - Execution Metadata
 - Execution Limit Audit
-- Summary
+- Summary — high-level outcome: candidate count, source categories covered, top gaps, and whether expansion was needed.
 - Source Map
 - Supplier Candidates
 - Search Result Signals
@@ -268,10 +268,7 @@ Every report must include:
 
 ## Evidence Boundaries
 
-Live reports prove evidence-bound supplier discovery behavior for a specific
-query. They do not prove provider readiness, browser/session readiness,
-account state, credential safety, external site compatibility, or production
-readiness.
+Live reports prove evidence-bound supplier discovery behavior within the runtime capability assumptions stated above. They do not prove provider readiness, browser/session readiness, account state, credential safety, external site compatibility, or production readiness.
 
 Before any live/provider phase:
 
@@ -288,6 +285,6 @@ For live reports:
 1. Keep `evidence_scope: "live"` and do not mix live reports with sample
    or synthetic data.
 2. Verify every report section against `references/contract.md` before
-   accepting.
+   declaring the report complete and accurate.
 3. Rerun review for provider, browser, credential, session, and
    external-write boundaries before any live smoke.

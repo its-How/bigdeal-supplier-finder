@@ -1,4 +1,0 @@
-interface:
-  display_name: "BigDeal Supplier Finder"
-  short_description: "Evidence-bound supplier discovery workflow"
-  default_prompt: "Use $bigdeal-supplier-finder to build an evidence-bound supplier discovery report for a product."

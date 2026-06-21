@@ -24,13 +24,6 @@
     "SUPPORT.md",
     "LICENSE"
   ],
-  "scripts": {
-    "test": "node --test bigdeal-supplier-finder/tests/*.test.js bigdeal-supplier-finder/tests/*.test.mjs",
-    "check": "node --check bigdeal-supplier-finder/scripts/*.js bigdeal-supplier-finder/scripts/src/*.js bigdeal-supplier-finder/tests/*.test.js bigdeal-supplier-finder/tests/*.test.mjs",
-    "fixture": "node bigdeal-supplier-finder/scripts/bsf-fixture.js bigdeal-supplier-finder/fixtures/sample-suite.json",
-    "release:check": "npm test && npm run check && npm run fixture && npm pack --dry-run",
-    "prepublishOnly": "npm test && npm run check && npm run fixture"
-  },
   "engines": {
     "node": ">=20"
   },

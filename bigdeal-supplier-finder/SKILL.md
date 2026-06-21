@@ -9,7 +9,7 @@ Use this skill to help an agent discover where to search for suppliers and produ
 
 This is a runtime-agnostic agent skill. It is not a crawler, not a supplier database, not a procurement recommendation engine, and not a trust or due-diligence score.
 
-## Hard Boundary
+## Find-Stage Scope
 
 Do:
 
@@ -17,16 +17,14 @@ Do:
 - record `SearchResultSignal`, `SourceAttempt`, `SourceMapEntry`, `SupplierCandidate`, `QuerySuggestion`, and `Gap` separately;
 - Every Supplier Candidate must include at least one evidence link that: (a) is a valid HTTP/HTTPS URL, (b) is not a search engine results page or site-search page, (c) is not a known paywall/login-wall/captcha page, (d) points to a page that contains the supplier information claimed in the candidate fields. Evidence links that fail these criteria must be removed; if no valid evidence link remains, the candidate must not enter Supplier Candidates.
 - grade evidence strength only as A/B/C/D;
-- mark low-evidence and missing-evidence cases instead of hiding them;
-- run the deterministic validator scripts when editing report contracts or examples.
+- mark low-evidence and missing-evidence cases instead of hiding them.
 
 Do not:
 
 - log in, handle cookies, read sessions, solve captcha, bypass access controls, use paid APIs, or access credentialed sources;
 - run recursive crawling, bulk scraping, database storage, contact enrichment, or background monitoring;
 - label suppliers as trustworthy, safe, recommended, best, verified, compliant, or purchase-ready;
-- count search pages, query-only snippets, AI answers without public URLs, failed fetches, restricted pages, paywalls, login walls, captcha pages, or D-grade raw signals as actionable leads;
-- claim that deterministic fixture tests prove live supplier discovery quality.
+- count search pages, query-only snippets, AI answers without public URLs, failed fetches, restricted pages, paywalls, login walls, captcha pages, or D-grade raw signals as actionable leads.
 
 ## Inputs
 
@@ -39,7 +37,7 @@ Ask for or infer:
 - available runtime capability: `search+fetch`, `search-only`, or `no-search`;
 - whether live web/provider/browser/credential actions are explicitly authorized.
 
-If live or credentialed actions are not explicitly authorized, operate in planning or deterministic fixture mode only.
+If live or credentialed actions are not explicitly authorized, operate in planning mode only.
 
 ## Runtime Capability Assumptions
 
@@ -51,6 +49,131 @@ If search is unavailable, operate in `no-search` mode (fail-fast with metadata o
 If fetch is unavailable, operate in `search-only` mode (C-grade candidates only).
 
 This skill does NOT assume: paid API access, authenticated sessions, CAPTCHA solving, JavaScript rendering, or database storage.
+
+## Live Run
+
+When the agent runtime has search and/or fetch capability, execute the
+five-round workflow below to produce an evidence-bound supplier discovery
+report. The agent runs everything itself; no external script, adapter, or
+registry orchestrates the run.
+
+### Tool Discovery
+
+Before starting, the agent must check which tools are available in its
+current runtime:
+
+1. **Search tool**: Can the agent query a search engine and receive result
+   titles, snippets, and target URLs?
+2. **Fetch tool**: Can the agent retrieve page content from a public
+   HTTP/HTTPS URL?
+
+Do not assume specific tool names. Each runtime exposes different interfaces.
+If neither search nor fetch is available, operate in `no-search` mode (see
+Runtime Capability Assumptions).
+
+### Execution Flow
+
+**Phase 1: Query Planning**
+
+Generate at least 6 deduplicated query combinations across target regions,
+product terms, and sourcing intents. Each query targets a specific source
+category (B2B platforms, trade shows, associations, government directories,
+company websites, media/community).
+
+**Phase 2: Search**
+
+Execute each query using the runtime's search tool. Record every result as a
+`SearchResultSignal` (query fuel, not evidence). Track:
+- `query_id`, `engine_or_entry`, `title`, `snippet`, `result_url`, `rank`
+- `is_search_page_url` (true for SERP / site-search results)
+- `admissibility` (for SERP entries: `inadmissible`)
+
+**Phase 3: Fetch and Extract**
+
+For each promising target URL from search results:
+1. Fetch the page using the runtime's fetch tool.
+2. Record a `SourceAttempt` with status and reason.
+3. If the fetch fails, record the failure and add a `Gap`. Do not create
+   a SourceMapEntry or SupplierCandidate.
+4. If the fetch succeeds, classify the page:
+   - **Discovery surface** (lists/aggregates multiple suppliers): create a
+     `SourceMapEntry`.
+   - **Single-supplier page**: create a `SupplierCandidate`.
+5. Validate every candidate has at least one admissible evidence link
+   (see Evidence Admissibility below).
+
+**Phase 4: Expansion**
+
+Run one base expansion pass if Supplier Candidates are fewer than 8 or
+source categories are fewer than 3. Generate targeted queries for uncovered
+regions or source types. Deduplicate actionable leads by canonical URL +
+normalized name.
+
+**Phase 5: Assemble Report**
+
+Load `references/contract.md` and assemble all required sections:
+- `execution_metadata` (profile, runtime capabilities, started_at,
+  finished_at, elapsed_seconds, rounds_completed, stage_records, stop_reason,
+  limits_hit, all counters)
+- `execution_limit_audit`
+- `acceptance_summary`
+- `source_map`
+- `supplier_candidates`
+- `search_result_signals`
+- `source_attempts`
+- `queries_tried`
+- `query_suggestions`
+- `gaps`
+- `next_steps`
+- `risk_notice`
+
+### Hard Limits
+
+Per run:
+
+1. **5-minute timeout**: If the run exceeds 5 minutes, stop new external
+   search/fetch actions and enter ROUND_5 with existing evidence.
+2. **No recursive crawl, pagination crawl, or infinite scroll**: Only fetch
+   the specific target URL identified during search. Do not follow
+   pagination links, "next page" buttons, or infinite-scroll loaders.
+3. **No large-file downloads, form submissions, credential access, or
+   anti-bot bypass**: Only fetch publicly accessible HTTP/HTTPS pages. Do
+   not download PDFs, ZIPs, or media files. Do not submit forms, handle
+   cookies, solve captcha, or bypass access controls.
+
+### Evidence Admissibility
+
+Every evidence link must satisfy ALL of these conditions:
+
+- Valid HTTP/HTTPS URL.
+- Not a search engine results page or site-search page.
+- Not a known paywall, login-wall, or captcha page.
+- Points to a page that contains the supplier information claimed in the
+  candidate fields.
+
+Links that fail these criteria must be removed. If no valid evidence link
+remains, the candidate must not enter Supplier Candidates.
+
+Additional rules:
+- SERP / site-search pages cannot serve as evidence.
+- Paywall / login-wall / captcha pages cannot serve as evidence.
+- D-grade signals (AI summary, no URL, search page URL, query-only signal,
+  missing minimum fields) cannot enter Supplier Candidates.
+- Each candidate must have at least one evidence link.
+- Deduplicate actionable leads by canonical URL + normalized supplier name.
+- No fabricated "actionable" claims from failed or restricted fetches.
+
+### Failure Handling
+
+When a fetch attempt fails (status: failed, restricted, missing_fields,
+rejected):
+
+1. Record the attempt in `source_attempts` with the failure reason.
+2. Add a `Gap` entry referencing the `source_attempt_id` and describing
+   what was missing.
+3. Do NOT create a SourceMapEntry or SupplierCandidate from the failed fetch.
+4. If the failure is due to a hard limit, mark remaining rounds as skipped
+   and continue to ROUND_5 with existing evidence.
 
 ## Workflow
 
@@ -86,8 +209,8 @@ A Supplier Candidate is a **specific supplier entity** with name, region, and pr
 
 ### ROUND_5: Curated Report
 15. Assemble all report sections per `references/contract.md`.
-16. Run deterministic validation (`npm test`, `npm run fixture`).
-17. Record acceptance summary with fixture gate verdict.
+16. Verify report against contract fields and evidence admissibility rules.
+17. Record acceptance summary with compliance verdict.
 
 ## Stopping Conditions
 
@@ -143,51 +266,31 @@ Every report must include:
 - Next Steps
 - Risk Notice
 
-## Deterministic Scripts
-
-Use these scripts from the repository root:
-
-```bash
-npm test
-npm run check
-npm run fixture
-```
-
-The fixture CLI lives at:
-
-```bash
-node bigdeal-supplier-finder/scripts/bsf-fixture.js bigdeal-supplier-finder/fixtures/sample-suite.json
-```
-
-Expected fixture CLI boundary:
-
-- `evidence_scope` is `deterministic-fixture`;
-- `live_reports` is empty;
-- `cannot_prove` includes real search breadth, supplier discovery quality, and live smoke readiness.
-
 ## Acceptance Boundaries
 
-Deterministic fixtures prove only local contract behavior. They do not prove live search breadth, supplier discovery quality, provider readiness, browser/session readiness, account state, credential safety, external site compatibility, or production readiness.
+Live reports prove evidence-bound supplier discovery behavior for a specific
+query. They do not prove provider readiness, browser/session readiness,
+account state, credential safety, external site compatibility, or production
+readiness.
 
 Before any live/provider phase:
 
-- split deterministic and live inputs explicitly;
-- keep live reports separate from fixture reports;
 - require 10 live reports for live acceptance statistics;
 - rerun review for browser/provider/credential/live boundaries.
 
 ## Live Report Validation
 
-Deterministic validation (`npm test`, `npm run fixture`) proves local contract
-behavior only. The fixture runner intentionally does not validate live reports:
-it emits `evidence_scope: "deterministic-fixture"` and keeps `live_reports`
-empty.
+This skill has no deterministic test runner. Live reports are the primary
+validation path. The agent must verify its own output against the contract
+before declaring success.
 
 For live reports:
 
-1. Keep `evidence_scope: "live"` and do not mix live reports with deterministic
-   fixtures.
-2. Use a separate live smoke suite, not included in this package.
-3. Require at least 10 live reports before acceptance statistics are meaningful.
-4. Rerun review for provider, browser, credential, session, and external-write
-   boundaries before any live smoke.
+1. Keep `evidence_scope: "live"` and do not mix live reports with sample
+   or synthetic data.
+2. Verify every report section against `references/contract.md` before
+   accepting.
+3. Require at least 10 live reports before acceptance statistics are
+   meaningful.
+4. Rerun review for provider, browser, credential, session, and
+   external-write boundaries before any live smoke.

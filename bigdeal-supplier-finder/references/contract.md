@@ -184,7 +184,7 @@ Hard failures:
 - live smoke suite not executed for live acceptance;
 - fewer than 10 live reports for live acceptance;
 - missing evidence links;
-- evidence boundary violations.
+- evidence scope violations.
 
 Deterministic fixtures do not count as live reports.
 

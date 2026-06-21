@@ -17,12 +17,12 @@ npm run check
 npm run fixture
 ```
 
-Expected fixture boundary:
+Expected fixture scope:
 
 - `evidence_scope` is `deterministic-fixture`;
 - `live_reports` is empty;
-- `cannot_prove` includes real search breadth, supplier discovery quality, and
-  live smoke readiness.
+- fixture output does not prove real search breadth, supplier discovery quality,
+  or live smoke readiness.
 
 This proves local contract behavior only. It does not prove live supplier
 discovery quality, provider readiness, browser/session readiness, account state,

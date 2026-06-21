@@ -21,13 +21,6 @@ bigdeal-supplier-finder/
 - No internal workspace paths.
 - No private credentials, tokens, cookies, sessions, or account identifiers.
 - No unpublished research drafts or user emails.
-- No marketing overclaims.
+- No marketing overstatements.
 - Deterministic tests pass.
 - Fixture CLI cannot emit live-smoke evidence.
-
-## Cannot Prove
-
-- Real supplier discovery quality.
-- Real search breadth.
-- Live smoke readiness.
-- Provider, browser, session, credential, account, deployment, registry, or production readiness.

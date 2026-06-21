@@ -1,6 +1,6 @@
 # Contributing
 
-Keep this repository agent-first and boundary-safe.
+Keep this repository agent-first and scope-safe.
 
 Before opening a change, run:
 
@@ -11,7 +11,7 @@ npm run fixture
 ```
 
 For install and usage expectations, keep [INSTALL.md](INSTALL.md) and
-[USAGE.md](USAGE.md) consistent with the skill boundary.
+[USAGE.md](USAGE.md) consistent with the skill scope.
 
 Do not add:
 

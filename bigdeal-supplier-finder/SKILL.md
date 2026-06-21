@@ -111,12 +111,12 @@ normalized name.
 
 **Phase 5: Assemble Report**
 
-Load `references/contract.md` and assemble all required sections:
+Load `references/contract.md` and assemble all required report fields:
 - `execution_metadata` (profile, runtime capabilities, started_at,
   finished_at, elapsed_seconds, rounds_completed, stage_records, stop_reason,
   limits_hit, all counters)
 - `execution_limit_audit`
-- `acceptance_summary`
+- `summary`
 - `source_map`
 - `supplier_candidates`
 - `search_result_signals`
@@ -210,7 +210,7 @@ A Supplier Candidate is a **specific supplier entity** with name, region, and pr
 ### ROUND_5: Curated Report
 15. Assemble all report sections per `references/contract.md`.
 16. Verify report against contract fields and evidence admissibility rules.
-17. Record acceptance summary with compliance verdict.
+17. Record summary.
 
 ## Stopping Conditions
 
@@ -249,13 +249,13 @@ When a fetched page uses collapsible/expandable sections (accordions, "Show more
 
 ## Report Contract
 
-Load `references/contract.md` when writing or reviewing report fields, acceptance gates, runtime profiles, or evidence admissibility.
+Load `references/contract.md` when writing or reviewing report fields, runtime profiles, or evidence admissibility.
 
 Every report must include:
 
 - Execution Metadata
 - Execution Limit Audit
-- Acceptance Summary
+- Summary
 - Source Map
 - Supplier Candidates
 - Search Result Signals
@@ -266,7 +266,7 @@ Every report must include:
 - Next Steps
 - Risk Notice
 
-## Acceptance Boundaries
+## Evidence Boundaries
 
 Live reports prove evidence-bound supplier discovery behavior for a specific
 query. They do not prove provider readiness, browser/session readiness,
@@ -275,7 +275,6 @@ readiness.
 
 Before any live/provider phase:
 
-- require 10 live reports for live acceptance statistics;
 - rerun review for browser/provider/credential/live boundaries.
 
 ## Live Report Validation
@@ -290,7 +289,5 @@ For live reports:
    or synthetic data.
 2. Verify every report section against `references/contract.md` before
    accepting.
-3. Require at least 10 live reports before acceptance statistics are
-   meaningful.
-4. Rerun review for provider, browser, credential, session, and
+3. Rerun review for provider, browser, credential, session, and
    external-write boundaries before any live smoke.

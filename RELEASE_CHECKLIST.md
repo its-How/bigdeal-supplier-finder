@@ -31,7 +31,7 @@ npm run release:check
 npm pack --dry-run
 ```
 
-## Boundary Checks
+## Scope Checks
 
 - The npm shape has no `bin`, `main`, or `exports`; do not describe it as a
   CLI or JavaScript import API.
@@ -66,7 +66,7 @@ npm pack --dry-run
   explicitly authorized token flow, and an npm registry receipt. It does not
   prove runtime loading, registry acceptance, supplier quality, or adoption.
 - Marketplace or skill-registry submission: before submitting, record the target
-  schema, account/auth requirement, write action, safety boundary, and overclaim
-  boundary. Submission does not prove acceptance.
+  schema, account/auth requirement, and write action. Submission does not prove
+  acceptance.
 - Public announcement: requires exact channel/content approval and a URL or
   screenshot receipt. Announcement does not prove adoption.

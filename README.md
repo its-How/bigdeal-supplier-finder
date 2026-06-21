@@ -66,7 +66,7 @@ npm run fixture
 
 The fixture command must stay deterministic and must not claim live readiness.
 
-## Publication Boundary
+## Publication Scope
 
 The current package can be treated as a locally validated package candidate when validation and review pass. Any GitHub push, registry publish, package release, or external write requires a separate explicit approval and a receipt.
 

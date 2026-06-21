@@ -10,9 +10,9 @@ Maintained:
 - `bigdeal-supplier-finder/SKILL.md` trigger and workflow contract;
 - report contract reference;
 - deterministic fixtures and tests;
-- source-map, supplier-candidate, evidence-link, and acceptance-boundary rules;
+- source-map, supplier-candidate, evidence-link, and scope rules;
 - local package metadata for distributing skill files and validation assets;
-- documentation that preserves the no-live/default boundary.
+- documentation that preserves the no-live/default scope.
 
 Not supported by this package:
 
@@ -28,7 +28,7 @@ Not supported by this package:
 
 ## Version Policy
 
-- Patch releases may fix fixtures, tests, docs, package metadata, or boundary
+- Patch releases may fix fixtures, tests, docs, package metadata, or scope
   wording without changing the report contract.
 - Minor releases may add deterministic contract fields, fixtures, or advisory
   metadata after validation.

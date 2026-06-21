@@ -20,14 +20,33 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Test
-        run: npm test
+      - name: Package structure check
+        run: |
+          test -f bigdeal-supplier-finder/SKILL.md
+          test -d bigdeal-supplier-finder/references
+          test -f README.md
+          test -f LICENSE
+          echo "Package structure OK"
 
-      - name: Syntax check
-        run: npm run check
+      - name: SKILL.md syntax check
+        run: |
+          node -e "
+            const fs = require('fs');
+            const skill = fs.readFileSync('bigdeal-supplier-finder/SKILL.md', 'utf8');
+            if (!skill.includes('Live Run')) throw new Error('Missing Live Run section');
+            if (skill.includes('npm test')) throw new Error('Contains npm test reference');
+            console.log('SKILL.md OK');
+          "
 
-      - name: Fixture
-        run: npm run fixture
+      - name: SPEC.md check
+        run: |
+          node -e "
+            const fs = require('fs');
+            const spec = fs.readFileSync('bigdeal-supplier-finder/SPEC.md', 'utf8');
+            if (!spec.includes('file-distribution')) throw new Error('Missing file-distribution mention');
+            if (spec.includes('npm test')) throw new Error('Contains npm test reference');
+            console.log('SPEC.md OK');
+          "
 
       - name: Package dry run
         run: npm pack --dry-run

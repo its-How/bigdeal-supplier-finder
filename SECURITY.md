@@ -7,7 +7,7 @@ Do not include credentials, tokens, cookies, browser profiles, session material,
 private supplier/customer data, paid provider details, or account data in
 reports.
 
-## Security Boundary
+## Security Scope
 
 `bigdeal-supplier-finder` should not:
 

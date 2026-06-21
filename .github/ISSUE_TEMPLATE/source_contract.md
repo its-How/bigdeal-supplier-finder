@@ -12,7 +12,7 @@ assignees: ""
 
 ## Fixture or Test Case
 
-## Boundary Check
+## Scope Check
 
 - [ ] This change preserves deterministic local validation.
 - [ ] This change does not require credentials, paid provider access, browser/session access, live supplier verification, or external-write behavior.

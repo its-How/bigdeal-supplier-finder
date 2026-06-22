@@ -111,7 +111,7 @@ normalized name.
 
 **Phase 5: Assemble Report**
 
-Load `references/contract.md` and assemble all required report fields:
+Assemble all required report fields:
 - `execution_metadata` (profile, runtime capabilities, started_at,
   finished_at, elapsed_seconds, rounds_completed, stage_records, stop_reason,
   limits_hit, all counters)
@@ -178,14 +178,17 @@ rejected):
 ## Workflow
 
 ### Pre-Flight
+
 1. Classify runtime capability: `search+fetch`, `search-only`, or `no-search`.
 2. If `no-search`, return fail-fast metadata and empty arrays immediately.
 
 ### ROUND_1: Seed
+
 3. Build at least 6 deduplicated query combinations across target regions, product terms, and sourcing intents.
 4. Execute initial search across at least 3 source categories.
 
 ### ROUND_2: Source Discovery
+
 5. From ROUND_1 results, identify source surfaces (B2B platforms, directories, trade show lists, association pages).
 6. Build Source Map entries from URL-backed target pages that aggregate multiple suppliers.
 
@@ -194,6 +197,7 @@ A Source Map entry is a **discovery surface** — a URL-backed page that lists, 
 7. Record all search result signals as query fuel; do not treat them as evidence.
 
 ### ROUND_3: Candidate Extraction
+
 8. From Source Map entries and admissible search result target URLs, extract Supplier Candidates.
 
 A Supplier Candidate is a **specific supplier entity** with name, region, and product match. It must come from a Source Map entry or directly from a search result target URL. If the same URL serves as both a discovery surface AND describes a specific supplier, classify it as a Supplier Candidate and do NOT duplicate it in Source Map.
@@ -202,13 +206,15 @@ A Supplier Candidate is a **specific supplier entity** with name, region, and pr
 10. D-grade signals must not enter Supplier Candidates.
 
 ### ROUND_4: Expansion
+
 11. From gaps and query suggestions, generate expansion queries targeting uncovered regions, source categories, or product terms.
 12. Run one base expansion pass unless the profile is `no-search` or a hard limit has already stopped external actions. If Supplier Candidates are fewer than 8 or source categories are fewer than 3, run at most one targeted expansion or record why it is not possible.
 13. Deduplicate actionable leads by canonical URL + normalized name.
 14. If hard limit hit, stop new external search/fetch actions, continue to ROUND_5 with existing evidence, and record skipped external actions without fabricating results.
 
 ### ROUND_5: Curated Report
-15. Assemble all report sections per `references/contract.md`.
+
+15. Assemble all report sections per the contract fields below.
 16. Verify report against contract fields and evidence admissibility rules.
 17. Record summary.
 
@@ -249,7 +255,7 @@ When a fetched page uses collapsible/expandable sections (accordions, "Show more
 
 ## Report Contract
 
-Load `references/contract.md` when writing or reviewing report fields, runtime profiles, or evidence admissibility.
+Use the contract fields below when writing or reviewing report fields, runtime profiles, or evidence admissibility.
 
 Every report must include:
 
@@ -284,7 +290,7 @@ For live reports:
 
 1. Keep `evidence_scope: "live"` and do not mix live reports with sample
    or synthetic data.
-2. Verify every report section against `references/contract.md` before
+2. Verify every report section against the contract fields before
    declaring the report complete and accurate.
 3. Rerun review for provider, browser, credential, session, and
    external-write boundaries before any live smoke.

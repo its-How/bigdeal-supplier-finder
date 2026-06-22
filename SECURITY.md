@@ -18,7 +18,7 @@ reports.
 - perform browser/provider/live/external-write actions by default;
 - label suppliers as trustworthy, safe, recommended, best, verified, compliant,
   or purchase-ready;
-- claim that deterministic fixtures prove live supplier discovery quality.
+- claim that local validation proves live supplier discovery quality.
 
 Changes that add live/provider/browser behavior require a separate design and
 review gate.

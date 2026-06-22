@@ -1,5 +1,14 @@
 # Changelog
 
+## Correction
+
+Corrects prior public documentation that overstated fixtures, scripts, tests,
+and agent metadata not present in this repository. Removes `package.json`,
+`.github/` (broken CI), `RELEASE_CHECKLIST.md`, `SUPPORT.md`, and
+`OPEN_SOURCE_AUDIT.md` from the public package. Aligns the repository with
+skill-dev-baseline.md: pure `SKILL.md` folder distribution, no npm package,
+no false validation claims.
+
 ## v0.1.6
 
 - Uses a clean release line because remote `v0.1.5` tag already existed before

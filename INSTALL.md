@@ -1,7 +1,6 @@
 # Install
 
-`bigdeal-supplier-finder` is distributed as a portable skill directory plus an
-npm file-distribution package shape for deterministic validation.
+`bigdeal-supplier-finder` is distributed as a portable skill directory.
 
 The core skill directory is:
 
@@ -9,19 +8,11 @@ The core skill directory is:
 bigdeal-supplier-finder/
 ```
 
-The npm package is not published by this repository's local validation. Package
-metadata has no `bin`, `main`, or `exports` entry, so the npm shape is for
-distributing skill files and local validation assets only. It is not a CLI and
-not a JavaScript import API. Treat npm registry state as proven only by an npm
-registry receipt.
-
 ## From GitHub
 
 ```bash
 git clone https://github.com/its-How/bigdeal-supplier-finder.git
 cd bigdeal-supplier-finder
-node --version
-npm --version
 ```
 
 ## Generic Agent Runtime
@@ -50,27 +41,6 @@ cp -R bigdeal-supplier-finder "${CODEX_HOME:-$HOME/.codex}/skills/"
 
 This copies the portable skill contract only. It does not add provider access,
 browser sessions, credentials, paid APIs, live search, or external writes.
-
-`bigdeal-supplier-finder/agents/openai.yaml` is included as advisory metadata
-only. It does not prove OpenAI marketplace acceptance, Codex runtime acceptance,
-or any named registry listing.
-
-## Local Package Validation
-
-From the repository root:
-
-```bash
-npm test
-npm run check
-npm run fixture
-npm pack --dry-run
-```
-
-`npm pack --dry-run` shows what would be included in an npm package. It does not
-publish the package and does not prove registry acceptance.
-
-`npm publish`, package name claiming, account checks, registry submission, and
-release mutation require separate exact approval and an npm registry receipt.
 
 ## Not Included
 

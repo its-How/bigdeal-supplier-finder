@@ -17,6 +17,20 @@ It does not verify supplier trustworthiness, recommend purchases, bypass access 
 
 ## Installation
 
+### Option 1: skills.sh
+
+```bash
+npx skills add its-how/bigdeal-supplier-finder
+```
+
+### Option 2: ClawHub
+
+```bash
+clawhub install bigdeal-supplier-finder
+```
+
+### Option 3: Manual copy
+
 Copy the `bigdeal-supplier-finder/` directory into your agent runtime's skills path.
 
 ## Skill

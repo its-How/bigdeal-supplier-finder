@@ -1,6 +1,8 @@
 ---
 name: bigdeal-supplier-finder
 description: Use when an agent needs to create an evidence-bound supplier discovery report for a product or sourcing brief, especially for global buyers, cross-border ecommerce, private label, OEM/ODM, manufacturer discovery, B2B platform search, trade show directory search, supplier directory research, query expansion, source map generation, or structured sourcing reports. Produces source maps, supplier candidates, evidence links, gaps, and next-search suggestions. Does not log in, bypass captcha, use paid APIs, scrape at scale, store databases, score supplier trustworthiness, recommend purchases, or perform live/external actions without explicit separate authorization.
+metadata:
+  repository: https://github.com/its-How/bigdeal-supplier-finder
 ---
 
 # BigDeal Supplier Finder
@@ -251,7 +253,14 @@ When a fetched page uses collapsible/expandable sections (accordions, "Show more
 
 1. Note in `field_origin` whether critical fields (name, region, product_match_summary) came from visible or potentially-hidden content.
 2. If product listings or supplier details appear to be truncated by UI containers, add a `gap` entry: `{ reason: "collapsible_container_coverage_gap", detail: "..." }`.
-3. Downgrade evidence grade to C if critical fields rely on content that may be hidden behind expandable UI.
+ 3. Downgrade evidence grade to C if critical fields rely on content that may be hidden behind expandable UI.
+
+## Source & Upgrade
+
+- **Repository**: https://github.com/its-How/bigdeal-supplier-finder
+- **Upgrade**: Run `git pull` in the skill directory, or re-run `npx skills add its-how/bigdeal-supplier-finder` to get the latest version.
+- **Uninstall**: Delete the `bigdeal-supplier-finder/` directory from your skills path.
+
 
 ## Report Contract
 

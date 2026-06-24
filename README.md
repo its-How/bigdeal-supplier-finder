@@ -15,6 +15,13 @@ BigDeal Supplier Finder helps an agent prepare a structured sourcing report:
 
 It does not verify supplier trustworthiness, recommend purchases, bypass access controls, use paid APIs, store databases, or prove live supplier discovery quality.
 
+## Repo Contents
+
+- `bigdeal-supplier-finder/SKILL.md` — agent-readable supplier discovery workflow contract
+- `bigdeal-supplier-finder/sources.yaml` — source-family checklist for supplier discovery
+- `bigdeal-supplier-finder/source-registries/` — supplier discovery source registries
+- `bigdeal-supplier-finder/references/` — externalized report contract
+
 ## Installation
 
 ### Option 1: skills.sh

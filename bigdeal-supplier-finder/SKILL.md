@@ -1,8 +1,11 @@
 ---
 name: bigdeal-supplier-finder
 description: Use when an agent needs to create an evidence-bound supplier discovery report for a product or sourcing brief, especially for global buyers, cross-border ecommerce, private label, OEM/ODM, manufacturer discovery, B2B platform search, trade show directory search, supplier directory research, query expansion, source map generation, or structured sourcing reports. Produces source maps, supplier candidates, evidence links, gaps, and next-search suggestions. Does not log in, bypass captcha, use paid APIs, scrape at scale, store databases, score supplier trustworthiness, recommend purchases, or perform live/external actions without explicit separate authorization.
+license: MIT-0
+compatibility: "Requires runtime with web search and fetch capabilities for live reports. Operates in planning-only (no-search) mode without search. Does not assume paid APIs, auth, captcha solving, or JavaScript rendering."
 metadata:
   repository: https://github.com/its-How/bigdeal-supplier-finder
+  version: "1.0.0"
 ---
 
 # BigDeal Supplier Finder
@@ -40,6 +43,17 @@ Ask for or infer:
 - whether live web/provider/browser/credential actions are explicitly authorized.
 
 If live or credentialed actions are not explicitly authorized, operate in planning mode only.
+
+### Day 1 Answer
+
+Start with a Day 1 Answer:
+
+```text
+If I did no research, I would expect the strongest suppliers to come from ______ because ______.
+The actual outcome is ______.
+This should be searched now because ______.
+Adjacent sourcing capabilities that are out of scope are ______.
+```
 
 ## Runtime Capability Assumptions
 
@@ -198,6 +212,20 @@ A Source Map entry is a **discovery surface** — a URL-backed page that lists, 
 
 7. Record all search result signals as query fuel; do not treat them as evidence.
 
+### R1b: Identity Cross-Map
+
+Before extracting candidates, cross-map each plausible supplier candidate identity across the surfaces that expose it:
+
+- company name and legal name;
+- website URL;
+- B2B platform store URL or supplier ID;
+- trade show exhibitor ID;
+- association member ID;
+- government registry ID, when public;
+- source gap when any mapping cannot be confirmed.
+
+Mapping failures are source gaps, not market-absence claims.
+
 ### ROUND_3: Candidate Extraction
 
 8. From Source Map entries and admissible search result target URLs, extract Supplier Candidates.
@@ -264,24 +292,9 @@ When a fetched page uses collapsible/expandable sections (accordions, "Show more
 
 ## Report Contract
 
-Use the contract fields below when writing or reviewing report fields, runtime profiles, or evidence admissibility.
+Report contract fields are specified in [`references/report-contract.md`](references/report-contract.md). Every report must include the fields listed there.
 
-Every report must include:
-
-- Execution Metadata
-- Execution Limit Audit
-- Summary — high-level outcome: candidate count, source categories covered, top gaps, and whether expansion was needed.
-- Source Map
-- Supplier Candidates
-- Search Result Signals
-- Source Attempts
-- Queries Tried
-- Query Suggestions
-- Gaps
-- Next Steps
-- Risk Notice
-
-## Evidence Boundaries
+## Cannot Prove
 
 Live reports prove evidence-bound supplier discovery behavior within the runtime capability assumptions stated above. They do not prove provider readiness, browser/session readiness, account state, credential safety, external site compatibility, or production readiness.
 

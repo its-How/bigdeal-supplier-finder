@@ -98,7 +98,7 @@ Seed registry of supplier discovery source families for the BigDeal Supplier Fin
 
 ## Family 3: Industry Associations and Chambers of Commerce
 
-**id:** `industry-associations`
+**id:** `associations`
 
 **Examples:** China Chamber of Commerce for Import and Export of Machinery and Electronics (CCCME), China Electronics Chamber of Commerce (CECC), Federation of Indian Export Organisations (FIEO), British Chambers of Commerce, U.S. Chamber of Commerce, European Association of Craft, Small and Medium-sized Enterprises (UEAPME), specific industry associations by vertical
 
@@ -220,7 +220,7 @@ Seed registry of supplier discovery source families for the BigDeal Supplier Fin
 
 ## Family 6: Public Media and Community Sources
 
-**id:** `public-media-community`
+**id:** `media-community`
 
 **Examples:** Industry news sites (e.g., Sourcing Journal, Just Style), Reddit communities (r/entrepreneur, r/ecommerce, niche sourcing subreddits), Quora sourcing discussions, industry forums, LinkedIn posts and articles, trade publications, sourcing blogs, YouTube supplier review videos, podcast mentions
 

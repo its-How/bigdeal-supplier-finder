@@ -39,4 +39,4 @@ See `bigdeal-supplier-finder/SKILL.md` for the full agent-readable workflow cont
 
 ## License
 
-MIT.
+MIT-0.

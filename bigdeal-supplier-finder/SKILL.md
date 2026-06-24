@@ -283,6 +283,8 @@ When a fetched page uses collapsible/expandable sections (accordions, "Show more
 2. If product listings or supplier details appear to be truncated by UI containers, add a `gap` entry: `{ reason: "collapsible_container_coverage_gap", detail: "..." }`.
  3. Downgrade evidence grade to C if critical fields rely on content that may be hidden behind expandable UI.
 
+Use `sources.yaml` as a source-family checklist for choosing discovery sources, not a mandatory taxonomy.
+
 ## Source & Upgrade
 
 - **Repository**: https://github.com/its-How/bigdeal-supplier-finder

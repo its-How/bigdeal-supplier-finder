@@ -18,7 +18,7 @@ It does not verify supplier trustworthiness, recommend purchases, bypass access 
 ## Repo Contents
 
 - `bigdeal-supplier-finder/SKILL.md` — agent-readable supplier discovery workflow contract
-- `bigdeal-supplier-finder/sources.yaml` — source-family checklist for supplier discovery
+- `bigdeal-supplier-finder/sources.yaml` — source-family selection guide for supplier discovery
 - `bigdeal-supplier-finder/source-registries/` — supplier discovery source registries
 - `bigdeal-supplier-finder/references/` — externalized report contract
 

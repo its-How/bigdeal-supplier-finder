@@ -1,5 +1,5 @@
 version: "0.1"
-purpose: "Source-family checklist for supplier discovery. Choose sources by target lane ecosystem; this is not a universal mandatory checklist."
+purpose: "Source-family selection guide for supplier discovery. Choose sources by target lane ecosystem; this is not a universal mandatory list."
 source_families:
   - id: "b2b-platforms"
     label: "B2B platforms and marketplaces"
